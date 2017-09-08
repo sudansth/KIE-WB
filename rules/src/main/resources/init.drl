@@ -1,0 +1,89 @@
+
+import java.lang.Number;
+import org.drools.core.*;
+import org.kie.api.runtime.process.WorkItemHandler;
+import org.drools.core.process.instance.impl.WorkItemImpl;
+import org.jbpm.bpmn2.handler.LoggingTaskHandlerDecorator;
+import org.jbpm.bpmn2.handler.ServiceTaskHandler;
+//import andres.foo_project.NotificationWorkItemHandler;
+import life.genny.qwanda.message.QCmdMessage;
+import com.google.gson.Gson;
+import life.genny.qwandautils.QwandaUtils;
+import life.genny.qwandautils.KeycloakUtils;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+// import io.vertx.core.json.JsonObject;
+import java.util.Map;
+
+    global java.lang.String KEYPROTO;
+    global java.lang.String KEYPORT;
+    global java.lang.String KEYIP;
+    global java.lang.String KEYURL;
+    global java.lang.String KEYID;
+    global java.lang.String KEYUSER;
+    global java.lang.String KEYPASS;
+    global java.lang.String REALM;
+    global java.lang.String SECRET;
+    global java.lang.String QWANDASERURL;
+
+ 
+ rule "Init"
+  no-loop
+  lock-on-active
+   when
+        $map : Map($value:this["data"], $value1:this["token"], $value.toString().contains("AUTH_INIT")) 
+    then 
+       
+        //sending cmd layout1 
+        QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout1");
+        Gson gson = new Gson();
+        String json1 = gson.toJson(cmd);
+        System.out.println(json1);
+        QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", json1, (String)$map.get("token"));
+        
+        System.out.println("Alyson AUTH_INIT RULE");
+ 		//System.out.println("Rule Token is "+((String)$map.get("token")));
+  
+		String keycloakUrl = KEYPROTO+KEYIP+":"+KEYPORT;
+ 		System.out.println("HOSTIP:"+KEYIP+" ,qwandaUrl="+QWANDASERURL);
+ 		System.out.println(keycloakUrl+":"+KEYID+":"+KEYUSER+":"+KEYPASS+":"+REALM+":"+SECRET+":"+QWANDASERURL);
+  
+  	    String tokenString = (String)$map.get("token");//KeycloakUtils.getToken(keycloakUrl,realm, keycloakClientId, secret, keycloakUser, keycloakPassword);
+		System.out.println("tokenstr="+tokenString);
+		String json = QwandaUtils.apiGet(QWANDASERURL+"/qwanda/baseentitys/PER_USER1", tokenString);
+
+        ObjectMapper mapper = new ObjectMapper();
+        //Converting baseentity string file to Json
+        JsonNode baseEntity = mapper.readTree(json);
+		JsonNode rootNode = mapper.createObjectNode();
+		//ObjectNode rootNode = mapper.createObjectNode();
+		((ObjectNode) rootNode).put("msg_type","DATA_MSG" );
+		 ((ObjectNode) rootNode).put("data_type", "BASE_ENTITY");
+	     ((ObjectNode) rootNode).put("datas", baseEntity);
+        
+        //System.out.println("@@@@@  Before toStirng @@@@ "+rootNode);    
+        
+        String jsonString = "";
+        try {
+        		//jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);
+        		  jsonString = mapper.writeValueAsString(rootNode);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("*******************");
+		//System.out.println("Json="+json.toString());	
+		System.out.println("Json="+jsonString);
+		System.out.println("*******************");
+// 		String json2 = gson.toJson(obj);
+	   System.out.println("Sending message to the bridge via Qwanda");	
+       QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", jsonString, tokenString);
+ 
+         
+end
+        
+        
