@@ -4,7 +4,7 @@ import org.kie.api.runtime.process.WorkItemHandler;
 import org.drools.core.process.instance.impl.WorkItemImpl;
 import org.jbpm.bpmn2.handler.LoggingTaskHandlerDecorator;
 import org.jbpm.bpmn2.handler.ServiceTaskHandler;
-import andres.foo_project.NotificationWorkItemHandler;
+// import andres.foo_project.NotificationWorkItemHandler;
 import life.genny.qwanda.message.QCmdMessage;
 import com.google.gson.Gson;
 import life.genny.qwandautils.QwandaUtils;
