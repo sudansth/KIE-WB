@@ -1,0 +1,58 @@
+import java.lang.Number;
+import org.drools.core.*;
+import org.kie.api.runtime.process.WorkItemHandler;
+import org.drools.core.process.instance.impl.WorkItemImpl;
+import org.jbpm.bpmn2.handler.LoggingTaskHandlerDecorator;
+import org.jbpm.bpmn2.handler.ServiceTaskHandler;
+import andres.foo_project.NotificationWorkItemHandler;
+import life.genny.qwanda.message.QCmdMessage;
+import com.google.gson.Gson;
+import life.genny.qwandautils.QwandaUtils;
+// import org.jbpm.process.workitem.wsht.WSHumanTaskHandler;
+import java.util.Map;
+
+rule "layout1"
+//	dialect "mvel"
+	when
+	    $map : Map($value:this["data"], $value.toString().contains("code=layout1")) 
+// 		$o : Object()
+	then
+        // kcontext.getKieRuntime().getWorkItemManager().registerWorkItemHandler("Human Task", new NotificationWorkItemHandler());
+        // kcontext.getKieRuntime().getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
+        // kcontext.getKieRuntime().startProcess("foo-project.foo");
+// 		System.out.println($o);
+        
+        
+        QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout1");
+        Gson gson = new Gson();
+        String json = gson.toJson(cmd);
+        // System.out.println(js"""
+        QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", json, json);
+        // System.out.println(json);
+        System.out.println("hellooo");
+end
+
+rule "layout2"
+ when
+      $map : Map($value:this["data"], $value.toString().contains("code=layout2")) 
+ then
+       QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout2");
+        Gson gson = new Gson();
+        String json = gson.toJson(cmd);
+        QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", json, json);
+        // System.out.println(json);
+        System.out.println("hellooo");
+end     
+
+rule "layout3"
+ when
+      $map : Map($value:this["data"], $value.toString().contains("code=layout3")) 
+ then
+       QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout3");
+        Gson gson = new Gson();
+        String json = gson.toJson(cmd);
+        QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", json, json);
+        // System.out.println(json);
+        System.out.println("hellooo");
+end 
+
