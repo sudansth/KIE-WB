@@ -83,7 +83,6 @@ import java.util.Map;
 	   System.out.println("Sending message to the bridge via Qwanda");	
        QwandaUtils.apiPostEntity("http://10.1.1.61:8081/api/kieserver", jsonString, tokenString);
  
-         
 end
         
         
