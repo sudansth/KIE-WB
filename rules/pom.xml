@@ -7,12 +7,28 @@
   <version>1.0</version>
   <packaging>kjar</packaging>
   <name>rules</name>
+  <dependencies>
+      <dependency>
+			<groupId>life.genny</groupId>
+			<artifactId>qwanda</artifactId>
+			<version>0.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>life.genny</groupId>
+			<artifactId>qwanda-utils</artifactId>
+			<version>0.1</version>
+		</dependency>
+  </dependencies>
   <repositories>
     <repository>
       <id>guvnor-m2-repo</id>
       <name>Guvnor M2 Repo</name>
       <url>http://localhost:8080/kie-wb/maven2/</url>
     </repository>
+    <repository>
+		<id>life.genny</id>
+		<url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
+	</repository>
   </repositories>
   <build>
     <plugins>
