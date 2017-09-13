@@ -3,17 +3,17 @@
     <repository>
       <include>true</include>
       <metadata>
-        <id>local</id>
-        <url>/Users/sudan/.m2/repository</url>
-        <source>LOCAL</source>
+        <id>life.genny</id>
+        <url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
+        <source>PROJECT</source>
       </metadata>
     </repository>
     <repository>
       <include>true</include>
       <metadata>
-        <id>central</id>
-        <url>https://repo.maven.apache.org/maven2</url>
-        <source>PROJECT</source>
+        <id>local</id>
+        <url>/Users/sudan/.m2/repository</url>
+        <source>LOCAL</source>
       </metadata>
     </repository>
     <repository>
@@ -27,8 +27,8 @@
     <repository>
       <include>true</include>
       <metadata>
-        <id>life.genny</id>
-        <url>https://nexus.outcome-hub.com/nexus/content/repositories/life.genny</url>
+        <id>central</id>
+        <url>https://repo.maven.apache.org/maven2</url>
         <source>PROJECT</source>
       </metadata>
     </repository>
