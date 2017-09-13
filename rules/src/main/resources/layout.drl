@@ -17,16 +17,10 @@ rule "layout1"
 	    $map : Map($value:this["data"], $value.toString().contains("code=layout1")) 
 // 		$o : Object()
 	then
-        // kcontext.getKieRuntime().getWorkItemManager().registerWorkItemHandler("Human Task", new NotificationWorkItemHandler());
-        // kcontext.getKieRuntime().getWorkItemManager().registerWorkItemHandler("Human Task", new WSHumanTaskHandler());
-        // kcontext.getKieRuntime().startProcess("foo-project.foo");
-// 		System.out.println($o);
-        
-        
         QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout1");
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
-        // System.out.println(js"""
+        System.out.println("Token ",  (String)$map.get("token"));
         QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, (String)$map.get("token"));
         // System.out.println(json);
         System.out.println("hellooo");
@@ -39,6 +33,7 @@ rule "layout2"
        QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout2");
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
+        System.out.println("Token ",  (String)$map.get("token"));
         QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, (String)$map.get("token"));
         // System.out.println(json);
         System.out.println("hellooo");
