@@ -27,7 +27,7 @@ rule "layout1"
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
         // System.out.println(js"""
-        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, json);
+        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, (String)$map.get("token"));
         // System.out.println(json);
         System.out.println("hellooo");
 end
@@ -39,7 +39,7 @@ rule "layout2"
        QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout2");
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
-        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, json);
+        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, (String)$map.get("token"));
         // System.out.println(json);
         System.out.println("hellooo");
 end     
@@ -51,7 +51,7 @@ rule "layout3"
        QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout3");
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
-        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, json);
+        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json, (String)$map.get("token"));
         // System.out.println(json);
         System.out.println("hellooo");
 end 
