@@ -30,7 +30,7 @@ rule "layout2"
  when
       $map : Map($value:this["data"], $value.toString().contains("code=layout2")) 
  then
-       QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout2");
+       QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout3");
         Gson gson = new Gson();
         String json = gson.toJson(cmd);
         System.out.println("Token " + (String)$map.get("token"));
