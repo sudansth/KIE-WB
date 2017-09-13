@@ -14,7 +14,7 @@ import java.util.Map;
 rule "layout1"
 //	dialect "mvel"
 	when
-	    $map : Map($value:this["data"], $value.toString().contains("code=layout1")) 
+	    $map : Map($value:this["data"].toString().contains("code=layout1")) 
 // 		$o : Object()
 	then
         QCmdMessage cmd = new QCmdMessage("CMD_LAYOUT","layout1");
