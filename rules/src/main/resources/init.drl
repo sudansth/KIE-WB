@@ -42,7 +42,7 @@ import java.util.Map;
         Gson gson = new Gson();
         String json1 = gson.toJson(cmd);
         System.out.println(json1);
-        QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/cmds", json1, (String)$map.get("token"));
+        QwandaUtils.apiPostEntity("http://10.1.1.57:8081/api/cmds", json1, (String)$map.get("token"));
         
         System.out.println("Alyson AUTH_INIT RULE");
  		//System.out.println("Rule Token is "+((String)$map.get("token")));
@@ -81,7 +81,7 @@ import java.util.Map;
 		System.out.println("*******************");
 // 		String json2 = gson.toJson(obj);
 	   System.out.println("Sending message to the bridge via Qwanda");	
-       QwandaUtils.apiPostEntity("http://10.1.1.59:8081/api/data", jsonString, tokenString);
+       QwandaUtils.apiPostEntity("http://10.1.1.57:8081/api/data", jsonString, tokenString);
  
 end
         
